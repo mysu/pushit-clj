@@ -10,7 +10,9 @@
                  [reagent-utils "0.2.1"]
                  [ring "1.6.1"]
                  [ring/ring-defaults "0.3.0"]
+                 [ring/ring-json "0.4.0"]
                  [compojure "1.6.0"]
+                 [org.clojure/data.json "0.2.6"]
                  [hiccup "1.0.5"]
                  [yogthos/config "0.8"]
                  [org.clojure/clojurescript "1.9.671"
