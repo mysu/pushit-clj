@@ -18,6 +18,8 @@
                  [org.clojure/clojurescript "1.9.671"
                   :scope "provided"]
                  [secretary "1.2.3"]
+                 [cljs-http "0.1.43"]
+                 [cljsjs/kjua "0.1.1-1"]
                  [venantius/accountant "0.2.0"
                   :exclusions [org.clojure/tools.reader]]]
 
