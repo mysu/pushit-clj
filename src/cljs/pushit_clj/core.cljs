@@ -48,9 +48,10 @@
 
 (defn post-init []
   (go (let [rsp (<! (http/get "rest/push"))]
-        (reset! pushid (get-in rsp [:body :pushId]))
-        (.appendChild (.getElementById js/document "push-id") (js/kjua "{text: 'pushid', mode: 'plain', label: 'PushIt}"))
-        )))
+        (let [newid (get-in rsp [:body :pushId])]
+        (reset! pushid newid)
+        (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str newid) })))
+        ))))
 
 (defn mount-root []
   (reagent/render [current-page] (.getElementById js/document "app")))
@@ -65,5 +66,6 @@
        (secretary/locate-route path))})
   (accountant/dispatch-current!)
   (mount-root)
-  (post-init)
   )
+
+(post-init)
