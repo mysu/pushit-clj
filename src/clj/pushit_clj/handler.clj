@@ -1,12 +1,12 @@
 (ns pushit-clj.handler
-  (:require [compojure.core :refer [GET ANY defroutes routes context]]
+  (:require [compojure.core :refer [GET ANY POST defroutes routes context]]
             [compojure.route :refer [not-found resources]]
             [compojure.handler :as handler]
             [config.core :refer [env]]
             [ring.middleware.json :as jsonware]
             [pushit-clj.middleware :refer [wrap-middleware]]
             [pushit-clj.pages :refer [loading-page cards-page]]
-            [pushit-clj.rest.push :refer [new-push-id]]
+            [pushit-clj.rest.push :refer [new-push-id connect]]
             [pushit-clj.json-wrapper :refer [json-rsp]]
             ))
 
@@ -15,6 +15,7 @@
   (GET "/" [] (loading-page))
   (GET "/about" [] (loading-page))
   (GET "/cards" [] (cards-page))
+  (GET "/ws/:push-id" [push-id] (connect push-id))
   (resources "/")
   (not-found "Not Found"))
 
