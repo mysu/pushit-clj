@@ -15,7 +15,7 @@
   (GET "/" [] (loading-page))
   (GET "/about" [] (loading-page))
   (GET "/cards" [] (cards-page))
-  (GET "/ws/:push-id" [push-id] (connect push-id))
+  (GET "/ws/:push-id" {{push-id :push-id} :params :as request} (connect request push-id))
   (resources "/")
   (not-found "Not Found"))
 

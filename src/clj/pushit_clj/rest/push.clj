@@ -12,10 +12,10 @@
 (defn new-push-id []
   {:pushId (uuid)})
 
-(defn connect [push-id]
-  (with-channel push-id channel
-    (swap! sessions assoc push-id channel)
-    (on-receive channel #'msg-received)
-    (on-close channel (fn [status]
-                        (swap! sessions dissoc push-id)))
-    ))
+(defn connect [req push-id]
+    (with-channel req channel
+      (swap! sessions assoc push-id channel)
+      (on-receive channel #'msg-received)
+      (on-close channel (fn [status]
+                          (swap! sessions dissoc push-id)))
+      ))
