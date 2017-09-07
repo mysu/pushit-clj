@@ -1,5 +1,7 @@
 (ns pushit-clj.rest.push
-  (:use org.httpkit.server))
+  (:use org.httpkit.server
+        [clojure.data.json :only [json-str]]
+        ))
 
 (def sessions (atom {}))
 
@@ -18,4 +20,18 @@
       (on-receive channel #'msg-received)
       (on-close channel (fn [status]
                           (swap! sessions dissoc push-id)))
+      (send! channel "connected")
       ))
+
+(defn push-msg [push-id msg]
+  (let [channel (get @sessions push-id)]
+    (if (not (nil? channel))
+      (do
+        (send! channel (json-str {:msg msg}))
+        {:status "200"}
+        )
+      {:status "404"
+       :msg "push-id does not exist"
+       :sessions (str  @sessions)
+       })))
+

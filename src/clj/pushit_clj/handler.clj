@@ -6,7 +6,7 @@
             [ring.middleware.json :as jsonware]
             [pushit-clj.middleware :refer [wrap-middleware]]
             [pushit-clj.pages :refer [loading-page cards-page]]
-            [pushit-clj.rest.push :refer [new-push-id connect]]
+            [pushit-clj.rest.push :refer [new-push-id connect push-msg]]
             [pushit-clj.json-wrapper :refer [json-rsp]]
             ))
 
@@ -24,6 +24,7 @@
 (defroutes rest-routes
   (context "/rest" []
     (GET "/push" [] (json-rsp (new-push-id)))
+    (POST "/push/:push-id" {{push-id :push-id msg :msg} :params} (json-rsp (push-msg push-id msg))) 
     (ANY "*"  [] (json-rsp "Not Found" 404))
   )
 )
