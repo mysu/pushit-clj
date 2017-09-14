@@ -20,7 +20,7 @@
       (on-receive channel #'msg-received)
       (on-close channel (fn [status]
                           (swap! sessions dissoc push-id)))
-      (send! channel "connected")
+      (send! channel (json-str {:msg "connected"}))
       ))
 
 (defn push-msg [push-id msg]
