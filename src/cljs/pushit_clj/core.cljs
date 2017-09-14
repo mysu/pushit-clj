@@ -10,8 +10,21 @@
   )
 
 (def pushid (atom "Loading"))
+(def messages (atom '() ))
+
 ;; -------------------------
 ;; Views
+
+(defn message-item [msg]
+  [:a {:href msg} msg])
+
+(defn message-list []
+  [:div#message-list
+   [:ul
+   (for [msg @messages]
+     ^{:key msg}[:li (message-item msg)])
+     ]]
+  )
 
 (defn pushid-view []
   [:div#push-id
@@ -23,6 +36,7 @@
   [:div [:h2 "Welcome to pushit-clj"]
    [:div [:a {:href "/about"} "go to about page"]]
    (pushid-view)
+   (message-list)
    ])
 
 (defn about-page []
