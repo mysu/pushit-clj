@@ -22,7 +22,10 @@
                  [cljs-http "0.1.43"]
                  [cljsjs/kjua "0.1.1-1"]
                  [venantius/accountant "0.2.0"
-                  :exclusions [org.clojure/tools.reader]]]
+                  :exclusions [org.clojure/tools.reader]]
+                 [ring-webjars "0.2.0"]
+                 [org.webjars/bootstrap "3.3.7"]
+                 ]
 
   :plugins [[lein-environ "1.0.2"]
             [lein-cljsbuild "1.1.5"]

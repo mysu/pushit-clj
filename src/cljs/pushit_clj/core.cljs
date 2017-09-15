@@ -38,6 +38,17 @@
 ;; -------------------------
 ;; Views
 
+(defn navbar []
+  [:div {:class "navbar navbar-inverse navbar-static-top" :role "navigation"}
+   [:div {:class "container-fluid"}
+    [:a.navbar-brand {:href "/"} "PushIt!"]
+    [:div {:class "collapse navbar-collapse navHeaderCollapse"}
+     [:ul {:class "nav navbar-nav navbar-right"}
+      [:li [:a {:href "/"} "Home"]]
+      [:li [:a {:href "/about"} "About"]]
+      ]
+     ]]])
+
 (defn message-item [msg]
   [:a {:href msg :target "_blank"} msg])
 
@@ -56,17 +67,30 @@
    ]
   )
 
+(defn main-container [content]
+  [:div.container-fluid {:role "main"}
+   (into [:div {:class "jumbotron text-center"}] content)
+    ])
+
 (defn home-page []
-  [:div [:h2 "Welcome to pushit-clj"]
-   [:div [:a {:href "/about"} "go to about page"]]
-   (pushid-view)
-   (item-list "Message list" @messages)
-   (item-list "Log" @log-msgs)
+  [:div 
+   (navbar)
+   (main-container
+     [
+       (pushid-view)
+       (item-list "Message list" @messages)
+       (item-list "Log" @log-msgs)
+      ])
    ])
 
 (defn about-page []
-  [:div [:h2 "About pushit-clj"]
-   [:div [:a {:href "/"} "go to the home page"]]])
+  [:div 
+   (navbar)
+   (main-container
+     [
+       [:p "This is the about page"]
+     ])
+   ])
 
 ;; -------------------------
 ;; Routes

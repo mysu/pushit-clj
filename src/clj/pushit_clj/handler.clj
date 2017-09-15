@@ -4,6 +4,7 @@
             [compojure.handler :as handler]
             [config.core :refer [env]]
             [ring.middleware.json :as jsonware]
+            [ring.middleware.webjars :refer [wrap-webjars]]
             [pushit-clj.middleware :refer [wrap-middleware]]
             [pushit-clj.pages :refer [loading-page cards-page]]
             [pushit-clj.rest.push :refer [new-push-id connect push-msg]]
@@ -19,7 +20,7 @@
   (resources "/")
   (not-found "Not Found"))
 
-(def site (handler/site site-routes))
+(def site (wrap-webjars (handler/site site-routes)))
 
 (defroutes rest-routes
   (context "/rest" []
