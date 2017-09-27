@@ -1,7 +1,8 @@
 (ns pushit-clj.rest.push
   (:use org.httpkit.server
         [clojure.data.json :only [json-str]]
-        ))
+        )
+  (:require [config.core :refer [env]] ))
 
 (def sessions (atom {}))
 
@@ -12,7 +13,9 @@
   )
 
 (defn new-push-id []
-  {:pushId (uuid)})
+  {:pushId (uuid)
+   :host (:basehost env) 
+  })
 
 (defn connect [req push-id]
     (with-channel req channel

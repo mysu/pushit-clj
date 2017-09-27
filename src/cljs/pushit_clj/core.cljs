@@ -111,9 +111,10 @@
 
 (defn post-init []
   (go (let [rsp (<! (http/get "rest/push"))]
-        (let [newid (get-in rsp [:body :pushId])]
+        (let [newid (get-in rsp [:body :pushId])
+              host (get-in rsp [:body :host])]
           (reset! pushid newid)
-          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str newid) })))
+          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "http://" host "/rest/push/" newid) })))
           (connectws)
           ))))
 

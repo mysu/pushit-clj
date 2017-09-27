@@ -123,6 +123,8 @@
                                   ]
 
                    :source-paths ["env/dev/clj"]
+                   :resource-paths ["env/dev"]
+                   
                    :plugins [[lein-figwheel "0.5.11"]
                              [lein-doo "0.1.6"]
                              
@@ -135,6 +137,7 @@
 
              :uberjar {:hooks [minify-assets.plugin/hooks]
                        :source-paths ["env/prod/clj"]
+                       :resource-paths ["env/prod"]
                        :prep-tasks ["compile" ["cljsbuild" "once" "min"]]
                        :env {:production true}
                        :aot :all
