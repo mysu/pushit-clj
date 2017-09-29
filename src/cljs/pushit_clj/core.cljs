@@ -50,15 +50,16 @@
      ]]])
 
 (defn message-item [msg]
-  [:a {:href msg :target "_blank"} msg])
+  [:a.list-group-item {:href msg :target "_blank"} msg])
 
 (defn item-list [title msg-list]
-  [:div
-   [:h3 title]
-   [:ul
-    (for [msg msg-list]
-      ^{:key msg}[:li (message-item msg)])
-    ]]
+  [:div {:class "panel panel-default"}
+   [:div.panel-heading title]
+   [:div.panel-body
+    [:div.list-group
+     (for [msg msg-list]
+       ^{:key msg}(message-item msg))
+     ]]]
   )
 
 (defn pushid-view []
@@ -70,17 +71,17 @@
 (defn main-container [content]
   [:div.container-fluid {:role "main"}
    (into [:div {:class "jumbotron text-center"}] content)
-    ])
+   ])
 
 (defn home-page []
   [:div 
    (navbar)
    (main-container
-     [
-       (pushid-view)
-       (item-list "Message list" @messages)
-       (item-list "Log" @log-msgs)
-      ])
+     [(pushid-view)]
+     )
+   (item-list "Message list" @messages)
+   (item-list "Log" @log-msgs)
+
    ])
 
 (defn about-page []
@@ -88,8 +89,8 @@
    (navbar)
    (main-container
      [
-       [:p "This is the about page"]
-     ])
+      [:p "This is the about page"]
+      ])
    ])
 
 ;; -------------------------
@@ -131,6 +132,6 @@
        (secretary/locate-route path))})
   (accountant/dispatch-current!)
   (mount-root)
-(post-init)
+  (post-init)
   )
 
