@@ -114,7 +114,7 @@
         (let [newid (get-in rsp [:body :pushId])
               host (get-in rsp [:body :host])]
           (reset! pushid newid)
-          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "http://" host "/rest/push/" newid) })))
+          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "http://" host ":3449/rest/push--" newid) })))
           (connectws)
           ))))
 

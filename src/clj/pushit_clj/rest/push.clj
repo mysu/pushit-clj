@@ -23,18 +23,16 @@
       (on-receive channel #'msg-received)
       (on-close channel (fn [status]
                           (swap! sessions dissoc push-id)))
-      (send! channel (json-str {:msg "connected"}))
       ))
 
-(defn push-msg [push-id msg]
+(defn push-msg [push-id msg ]
   (let [channel (get @sessions push-id)]
     (if (not (nil? channel))
       (do
         (send! channel (json-str {:msg msg}))
         {:status "200"}
         )
-      {:status "404"
-       :msg "push-id does not exist"
-       :sessions (str  @sessions)
+      {:status "400"
+       :msg (str "push-id does not exist: " push-id ", msg: "  msg)
        })))
 

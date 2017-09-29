@@ -25,7 +25,7 @@
 (defroutes rest-routes
   (context "/rest" []
     (GET "/push" [] (json-rsp (new-push-id)))
-    (POST "/push/:push-id" {{push-id :push-id msg :msg} :params} (json-rsp (push-msg push-id msg))) 
+    (POST "/push" {{push-id :pushId msg :msg} :params} (json-rsp (push-msg push-id msg))) 
     (ANY "*"  [] (json-rsp "Not Found" 404))
   )
 )
