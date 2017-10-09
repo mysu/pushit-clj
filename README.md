@@ -6,3 +6,4 @@ This project was configured using the Reagent template: https://github.com/reage
 ## Commands:
 
 * Run: ```lein figwheel```
+* Access a browser: http://localhost:3449
