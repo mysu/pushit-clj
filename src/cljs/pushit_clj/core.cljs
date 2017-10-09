@@ -9,9 +9,11 @@
   (:require-macros [cljs.core.async.macros :refer [go]])
   )
 
+
 (def pushid (atom nil))
 (def messages (atom () ))
 (def log-msgs (atom () ))
+(def config (atom {}))
 
 ;; -------------------------
 ;; PushIt
@@ -19,7 +21,7 @@
 (defn connectws []
 
 
-  (def connection (js/WebSocket. (str "ws://localhost:3449/ws/" @pushid)))
+  (def connection (js/WebSocket. (str "ws://" (:host @config) ":" (:port @config) "/ws/" @pushid)))
 
   (set! (.-onopen connection)
         (fn [e]
@@ -113,9 +115,11 @@
 (defn post-init []
   (go (let [rsp (<! (http/get "rest/push"))]
         (let [newid (get-in rsp [:body :pushId])
-              host (get-in rsp [:body :host])]
+              host (get-in rsp [:body :host])
+              port (get-in rsp [:body :port])]
           (reset! pushid newid)
-          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "http://" host ":3449/rest/push--" newid) })))
+          (reset! config {:host host :port port})
+          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "http://" host ":" port "/rest/push--" newid) })))
           (connectws)
           ))))
 

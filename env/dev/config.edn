@@ -1,3 +1,4 @@
 {
-  :basehost "192.168.0.6"
+  :basehost "localhost"
+  :port 3449
 }
