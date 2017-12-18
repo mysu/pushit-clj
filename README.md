@@ -5,6 +5,7 @@ This project was configured using the Reagent template: https://github.com/reage
 
 ## Commands:
 
+* (optional) export JAVA_OPTS="-Dconfig=<PATH_TO_CONFIG.EDN>" <-- For custom port and basehost in the code generation. See example in _config-example.edn_
 * Run: ```lein figwheel```
 * Access a browser: http://localhost:3449
 
