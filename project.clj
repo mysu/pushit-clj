@@ -135,7 +135,7 @@
 
                    :env {:dev true}}
 
-             :uberjar {:hooks [minify-assets.plugin/hooks]
+             :uberjar {:hooks [leiningen.less,minify-assets.plugin/hooks]
                        :source-paths ["env/prod/clj"]
                        :resource-paths ["env/prod"]
                        :prep-tasks ["compile" ["cljsbuild" "once" "min"]]
