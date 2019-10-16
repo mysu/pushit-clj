@@ -21,9 +21,9 @@
 (defn connectws []
 
 
-  (swap! log-msgs conj (str "Connecting to: ws://" (:host @config) "/ws/" @pushid))
+  (swap! log-msgs conj (str "Connecting to: wss://" (:host @config) "/ws/" @pushid))
   ;(def connection (js/WebSocket. (str "ws://" (:host @config) ":" (:port @config) "/ws/" @pushid)))
-  (def connection (js/WebSocket. (str "ws://" (:host @config) "/ws/" @pushid)))
+  (def connection (js/WebSocket. (str "wss://" (:host @config) "/ws/" @pushid)))
 
   (set! (.-onopen connection)
         (fn [e]
