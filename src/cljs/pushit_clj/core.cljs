@@ -119,7 +119,7 @@
               port (get-in rsp [:body :port])]
           (reset! pushid newid)
           (reset! config {:host host :port port})
-          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "http://" host ":" port "/rest/push--" newid) })))
+          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "https://" host ":" port "/rest/push--" newid) })))
           (connectws)
           ))))
 

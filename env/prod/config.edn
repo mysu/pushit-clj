@@ -1,4 +1,4 @@
 {
-  :basehost "https://mysu-pushit-clj.herokuapp.com"
+  :basehost "mysu-pushit-clj.herokuapp.com"
   :port 3449
 }
