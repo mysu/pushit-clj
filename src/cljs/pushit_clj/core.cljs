@@ -21,7 +21,8 @@
 (defn connectws []
 
 
-  (def connection (js/WebSocket. (str "ws://" (:host @config) ":" (:port @config) "/ws/" @pushid)))
+  ;(def connection (js/WebSocket. (str "ws://" (:host @config) ":" (:port @config) "/ws/" @pushid)))
+  (def connection (js/WebSocket. (str "ws://" (:host @config) "/ws/" @pushid)))
 
   (set! (.-onopen connection)
         (fn [e]
@@ -119,7 +120,8 @@
               port (get-in rsp [:body :port])]
           (reset! pushid newid)
           (reset! config {:host host :port port})
-          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "https://" host ":" port "/rest/push--" newid) })))
+          ;(.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "https://" host ":" port "/rest/push--" newid) })))
+          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "https://" host "/rest/push--" newid) })))
           (connectws)
           ))))
 
