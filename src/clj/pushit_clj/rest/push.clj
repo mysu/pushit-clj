@@ -14,8 +14,7 @@
 
 (defn new-push-id []
   {:pushId (uuid)
-   :host (:basehost env) 
-   :port (or (:port env) "3000") 
+   :secure (or (:secure env) "") 
   })
 
 (defn connect [req push-id]

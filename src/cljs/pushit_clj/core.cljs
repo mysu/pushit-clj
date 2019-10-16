@@ -21,9 +21,8 @@
 (defn connectws []
 
 
-  (swap! log-msgs conj (str "Connecting to: wss://" (:host @config) "/ws/" @pushid))
-  ;(def connection (js/WebSocket. (str "ws://" (:host @config) ":" (:port @config) "/ws/" @pushid)))
-  (def connection (js/WebSocket. (str "wss://" (:host @config) "/ws/" @pushid)))
+  (swap! log-msgs conj (str "Connecting to: ws" (:secure @config) "://" location.host "/ws/" @pushid))
+  (def connection (js/WebSocket. (str "ws" (:secure @config) "://" location.host "/ws/" @pushid)))
 
   (set! (.-onopen connection)
         (fn [e]
@@ -117,12 +116,10 @@
 (defn post-init []
   (go (let [rsp (<! (http/get "rest/push"))]
         (let [newid (get-in rsp [:body :pushId])
-              host (get-in rsp [:body :host])
-              port (get-in rsp [:body :port])]
+              secure (get-in rsp [:body :secure])]
           (reset! pushid newid)
-          (reset! config {:host host :port port})
-          ;(.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "https://" host ":" port "/rest/push--" newid) })))
-          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "https://" host "/rest/push--" newid) })))
+          (reset! config {:secure secure})
+          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "http" secure "://" location.host "/rest/push--" newid) })))
           (connectws)
           ))))
 

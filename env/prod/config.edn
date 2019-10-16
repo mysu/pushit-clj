@@ -1,4 +1,3 @@
 {
-  :basehost "mysu-pushit-clj.herokuapp.com"
-  :port 3449
+ :secure "s"
 }
