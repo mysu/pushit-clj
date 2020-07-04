@@ -37,11 +37,8 @@
   (set! (.-onmessage connection)
         (fn [e]
           (let [received-msg (.parse js/JSON (.-data e))]
-            (pprint "data: ")
-            (pprint e.data) 
-            (pprint received-msg) 
-            (swap! messages conj received-msg.msg))))
-  )
+            (swap! messages conj (.-msg received-msg)))))
+ )
 
 ;; -------------------------
 ;; Views
