@@ -5,6 +5,7 @@
             [cljs-http.client :as http]
             [accountant.core :as accountant]
             [cljsjs.kjua]
+            [cljs.pprint :refer [pprint]]
             )
   (:require-macros [cljs.core.async.macros :refer [go]])
   )
@@ -14,6 +15,7 @@
 (def messages (atom () ))
 (def log-msgs (atom () ))
 (def config (atom {}))
+
 
 ;; -------------------------
 ;; PushIt
@@ -35,6 +37,7 @@
   (set! (.-onmessage connection)
         (fn [e]
           (let [received-msg (.parse js/JSON (.-data e))]
+            (pprint received-msg)
             (swap! messages conj received-msg.msg))))
   )
 
