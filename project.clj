@@ -59,8 +59,8 @@
              :compiler
              {:output-to "target/cljsbuild/public/js/app.js"
               :output-dir "target/uberjar"
-              :optimizations :advanced
-              :pretty-print  false}}
+              :optimizations :whitespace
+              :pretty-print  true}}
             :app
             {:source-paths ["src/cljs" "src/cljc" "env/dev/cljs"]
              :figwheel {:on-jsload "pushit-clj.core/mount-root"}
